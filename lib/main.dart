@@ -27,7 +27,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> questions = ['Question1?', 'Question2?', 'Question3?'];
+    //adding a map for data
+    var questions = [
+      {
+        'questionText': 'Question1?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'Question2?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'Question3?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -36,7 +50,9 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: <Widget>[
-              Question(questionText: questions[_questionIndex],),
+              Question(
+                questionText: questions[_questionIndex]['questionText'],
+              ),
               Answer(
                 selectHandler: _answerQuestion,
               ), //passing callback to the Answer widget
