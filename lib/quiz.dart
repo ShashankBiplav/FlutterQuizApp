@@ -18,8 +18,8 @@ class Quiz extends StatelessWidget {
           questionText: questions[questionIndex]['questionText'],
         ),
         // here "..." is a spread operator in Dart
-        ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
-          return Answer(selectHandler: answerQuestion, answerText: answer);
+        ...(questions[questionIndex]['answers'] as List<Map<String, Object>>).map((answer) {
+          return Answer(selectHandler: () => answerQuestion(answer['score']), answerText: answer['text']);
         }).toList()
       ],
     );
