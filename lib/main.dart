@@ -53,15 +53,10 @@ class _MyAppState extends State<MyApp> {
               Question(
                 questionText: questions[_questionIndex]['questionText'],
               ),
-              Answer(
-                selectHandler: _answerQuestion,
-              ), //passing callback to the Answer widget
-              Answer(
-                selectHandler: _answerQuestion,
-              ),
-              Answer(
-                selectHandler: _answerQuestion,
-              ),
+              // here "..." is a spread operator in Dart
+             ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
+               return Answer(selectHandler:_answerQuestion, answerText: answer);
+             }).toList()
             ],
           ),
         ),
