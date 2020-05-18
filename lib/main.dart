@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
-
+import './quiz.dart';
+import './result.dart';
 // void main() {
 //   runApp(MyApp());
 // }
@@ -18,47 +17,47 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _questionIndex = 0;
+  //adding a map for data
+  final _questions = const [
+    {
+      'questionText': 'Question1?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'Question2?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'Question3?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+  ];
   void _answerQuestion() {
-    setState(() {
-      _questionIndex += 1;
-    });
-    print(_questionIndex);
+    if (_questionIndex < _questions.length) {
+      setState(() {
+        _questionIndex += 1;
+      });
+      print(_questionIndex);
+    } else {
+      // _questionIndex = 0;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    //adding a map for data
-    var questions = [
-      {
-        'questionText': 'Question1?',
-        'answers': ['Black', 'Red', 'Green', 'White'],
-      },
-      {
-        'questionText': 'Question2?',
-        'answers': ['Black', 'Red', 'Green', 'White'],
-      },
-      {
-        'questionText': 'Question3?',
-        'answers': ['Black', 'Red', 'Green', 'White'],
-      },
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Flutter App'),
         ),
         body: Center(
-          child: Column(
-            children: <Widget>[
-              Question(
-                questionText: questions[_questionIndex]['questionText'],
-              ),
-              // here "..." is a spread operator in Dart
-             ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
-               return Answer(selectHandler:_answerQuestion, answerText: answer);
-             }).toList()
-            ],
-          ),
+          child: _questionIndex < _questions.length
+              ? Quiz(
+                  questionIndex: _questionIndex,
+                  answerQuestion: _answerQuestion,
+                  questions: _questions,
+                )
+              : Result(),
         ),
       ),
     );
